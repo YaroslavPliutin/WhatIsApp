@@ -301,8 +301,8 @@ async def google_auth(request: Request, data: dict = Body(...), db: Session = De
             key="refresh_token",
             value=refresh_token,
             httponly=True,
-            samesite="lax",
-            secure=False
+            samesite="none" if IS_PROD else "lax",
+            secure=IS_PROD
         )
 
         return response
@@ -347,8 +347,8 @@ def refresh(request: Request):
             key="access_token",
             value=new_access,
             httponly=True,
-            samesite="lax",
-            secure=False
+            samesite="none" if IS_PROD else "lax",
+            secure=IS_PROD
         )
 
         return response
