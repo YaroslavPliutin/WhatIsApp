@@ -52,10 +52,8 @@ limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_middleware(SlowAPIMiddleware)
 
-origins = (
-    [FRONTEND_URL] if IS_PROD and FRONTEND_URL
-    else ["http://localhost:5173"]
-)
+origins = [FRONTEND_URL]
+
 
 app.add_middleware(
     CORSMiddleware,
