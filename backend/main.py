@@ -22,7 +22,10 @@ from fastapi.responses import JSONResponse
 
 load_dotenv()
 
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print("DB not available, skipping...", e)
 
 IS_PROD = os.getenv("ENV") == "prod"
 FRONTEND_URL = os.getenv("FRONTEND_URL")
