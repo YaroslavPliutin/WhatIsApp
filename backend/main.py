@@ -146,7 +146,7 @@ def get_current_user(
     return get_current_user_raw(request, db)
 
 @limiter.limit("10/minute")
-@app.post("/api/upload")
+@app.post("/upload")
 async def upload_file(
         request: Request,
         file: UploadFile = File(...),
@@ -261,7 +261,7 @@ async def upload_file(
 }
 
 @limiter.limit("5/minute")
-@app.post("/api/auth/google")
+@app.post("/auth/google")
 async def google_auth(request: Request, data: dict = Body(...), db: Session = Depends(get_db)):
     token = data.get("token")
 
@@ -312,7 +312,7 @@ async def google_auth(request: Request, data: dict = Body(...), db: Session = De
             "error": "Invalid Google token"
         }
 
-@app.get("/api/me")
+@app.get("/me")
 def read_users_me(current_user: User = Depends(get_current_user)):
     return {
         "id": current_user.id,
@@ -320,7 +320,7 @@ def read_users_me(current_user: User = Depends(get_current_user)):
         "name": current_user.name
     }
 
-@app.post("/api/refresh")
+@app.post("/refresh")
 def refresh(request: Request):
     token = request.cookies.get("refresh_token")
 
@@ -359,14 +359,14 @@ def refresh(request: Request):
         response.delete_cookie("refresh_token")
         return response
 
-@app.post("/api/logout")
+@app.post("/logout")
 def logout(response: Response):
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
     return {"message": "Logged out"}
 
 @limiter.limit("20/minute")
-@app.get("/api/history")
+@app.get("/history")
 def get_history(request: Request, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
     history = db.query(History).filter(
@@ -384,7 +384,7 @@ def get_history(request: Request, current_user: User = Depends(get_current_user)
     ]
 
 
-@app.delete("/api/history/{history_id}")
+@app.delete("/history/{history_id}")
 def delete_history(history_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     record = db.query(History).filter(
         History.id == history_id,
