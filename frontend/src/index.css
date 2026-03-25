@@ -366,7 +366,16 @@ html, body {
   top: 50px;
   right: 50px;
 
+  z-index: 99999;
+  pointer-events: none;
 }
+
+.menuButton,
+.dropdownBox {
+    pointer-events: auto;
+}
+
+
 
 .menuButton {
   position: relative;
@@ -385,13 +394,17 @@ html, body {
 
   cursor: pointer;
   background: transparent;
-  z-index: 3000;
+  z-index: 1999;
 }
 
 .menuButton.menuOpen {
   background: var(--color-dropDownColorLight);
   right: -247px;
   border: none;
+}
+
+.menuButton.menuOpen.dropDownMenuTemp {
+  z-index: 3100 !important;
 }
 
 .menuButton.menuOpen.menuHistory {
@@ -401,6 +414,7 @@ html, body {
   width: 60px;
   height: 60px;
   
+  z-index: 1999;
 }
 
 .menuButton.menuOpen.blockClose {
@@ -452,7 +466,7 @@ html, body {
 
   align-items: center;
 
-  z-index: 1900;
+  z-index: 2999;
 
   opacity: 1;
   transform-origin: top right;
@@ -1009,6 +1023,16 @@ html, body {
     
     width: 28px;
     height: 28px;
+  }
+
+}
+
+
+@media (max-width: 768px) and (max-height: 615px) {
+
+    .dropBoxFull {
+    top: calc(env(safe-area-inset-top) + 10px);
+    right: 10px;
   }
 
 }

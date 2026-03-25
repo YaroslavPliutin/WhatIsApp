@@ -58,7 +58,7 @@ function Header({ menuOpen, setMenuOpen, user, setUser, handleLogout, setMode, s
       <div className="dropBoxFull">
 
         {menuOpen &&(
-        <div className={`menuButton menuOpen btnAnimated`} onClick={() => setMenuOpen(!menuOpen)} >
+        <div className={`menuButton menuOpen dropDownMenuTemp btnAnimated`} onClick={() => setMenuOpen(!menuOpen)} >
           <span className="menuIconText">✕</span>
         </div>
         )}
